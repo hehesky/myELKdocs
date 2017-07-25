@@ -1,0 +1,14 @@
+curl -XGET 'localhost:9200/_cat/indices?v&pretty'  //List all indices
+
+curl -XPUT 'localhost:9200/<index_name>?pretty&pretty' //create a new index
+
+curl -XPUT 'localhost:9200/<index_name>/<type>/<int id;1,2,3 etc.>?pretty&pretty' -H 'Content-Type: application/json' -d'
+{
+  "name": "John Doe"
+}
+'       
+//insert entry to index with an integer id
+
+
+curl -XDELETE 'localhost:9200/<index_name>?pretty&pretty'  //delete an index
+

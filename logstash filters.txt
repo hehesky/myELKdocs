@@ -1,0 +1,10 @@
+Filters for logstash
+
+#nginx access log filter
+%{IPORHOST:clientip} .*\[%{HTTPDATE:log_time}\] \"%{WORD:method} %{GREEDYDATA:request}\"\s%{INT:status} %{INT:bytes} \"%{NOTSPACE:requested_uri}\" \"%{GREEDYDATA:web_agent}\"
+
+
+#tomcat operation log filter [under test]
+
+TOMCAT_DATE %{MONTH:month} %{MONTHDAY:day}, %{YEAR:year} %{TIME:time} (?<AMPM>[A|P]M)
+%{TOMCAT_DATE:date}\s%{NOTSPACE:AccessClass}\s%{WORD:directory}\W*%{WORD:log_type}:\s+%{GREEDYDATA:log_message}

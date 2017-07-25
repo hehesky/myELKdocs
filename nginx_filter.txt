@@ -1,0 +1,1 @@
+"message" => "%{IPORHOST:clientip} .*\[%{HTTPDATE:request_time}\] \"%{GREEDYDATA:request}\"\s%{INT:status} %{INT:bytes} \"%{URI:uri}\" \"%{GREEDYDATA:agent}\" \"%{GREEDYDATA:forwarded_for}\"$"
