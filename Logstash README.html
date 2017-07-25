@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Logstash README</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Logstash简要说明</h1>
+<p>作者：暴力膜的编译器<br />
+日期：2017年7月17日</p>
+<p>本说明基于Logstash 5.4.3版，如与最新版本的官方文档有出入，则以官方文档为准。</p>
+<p>官方文档：<code>https://www.elastic.co/guide/en/logstash/current/index.html</code></p>
+<p>参考资料：<code>http://udn.yyuap.com/doc/logstash-best-practice-cn/index.html</code></p>
+<blockquote>
+<p>“不要听风就是雨，整天就想搞个大新闻，你们自己也要有判断。”</p>
+</blockquote>
+<h2>1.下载与安装</h2>
+<h3>1.1准备工作</h3>
+<p>Logstash需要Java 8 SE的环境，在开始安装Logstash前请检查是否已经有合适版本的Java环境。</p>
+<p>可以使用如下命令</p>
+<pre><code>java -version
+</code></pre>
+
+<p>应当返回类似的版本信息</p>
+<pre><code>java version &quot;1.8.0_65&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_65-b17)
+Java HotSpot(TM) 64-Bit Server VM (build 25.65-b01, mixed mode)
+</code></pre>
+
+<h3>1.2 下载并安装Logstash</h3>
+<p>从https://www.elastic.co/downloads/logstash 下载Logstash的最近版本安装包，也可以考虑使用apt或yum命令进行下载</p>
+<p>如使用yum命令</p>
+<p>1）执行如下命令添加Elastic Co的公钥</p>
+<pre><code>rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+</code></pre>
+
+<p>2）将下列文本添加进/etc/yum.repo.d/logstash.repo文件，如果文件不存在则创建新文件</p>
+<pre><code>[logstash-5.x]
+name=Elastic repository for 5.x packages
+baseurl=https://artifacts.elastic.co/packages/5.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+</code></pre>
+
+<p>3）执行yum命令进行下载安装</p>
+<pre><code>sudo yum install logstash
+</code></pre>
+
+<p>如直接下载了安装包，则解压后即可使用。需要注意的是用安装包解压的方法不会把Logstash作为系统服务进行安装。</p>
+<pre><code>关于如何使用apt命令安装请参阅官方说明：
+https://www.elastic.co/guide/en/logstash/current/installing-logstash.html 
+</code></pre>
+
+<h3>1.3 验证安装（Hello World）</h3>
+<p>安装完成后，将命令行切换到Logstash安装目录下，执行</p>
+<pre><code>bin/logstash -e 'input { stdin { } } output { stdout {} }'
+</code></pre>
+
+<p>Windows系统下请执行</p>
+<pre><code>bin/logstash.bat -e 'input { stdin { } } output { stdout {} }'
+</code></pre>
+
+<p>上述命令会启动logstash，并设定从stdin读取输入，并原样输出至stdout。在Logstash启动完成并显示&quot;Pipeline main started&quot;后，键入hello world。若出现如下文本则说明安装成功：</p>
+<pre><code>hello world
+2017-07-17T11:22:14.405+0800 0.0.0.0 hello world
+</code></pre>
+
+<h2>2. 配置与运行logstash</h2>
+<h3>2.1与Filebeat联动</h3>
+<p>对Filebeat的配置文件filebeat.yml进行编辑，设定如下</p>
+<pre><code>filebeat.prospectors:
+- input_type: log
+  paths:
+    - /path/to/file/example.log 
+output.logstash:
+  hosts: [&quot;localhost:9200&quot;]
+</code></pre>
+
+<p>其中paths应设定为想要抓取的文件<br />
+完成后验证配置文件</p>
+<pre><code>./filebeat -e -configtest
+</code></pre>
+
+<h3>2.2 Logstash的配置文件</h3>
+<p>在logstash/bin文件夹下创建<code>logstash-simple.conf</code>文件，作为logstash运行时的配置文件。  </p>
+<p>logstash的配置文件分为三个部分，输入<code>input</code>，过滤器<code>filter</code>，输出<code>output</code></p>
+<ul>
+<li>输入负责接收数据流</li>
+<li>过滤器负责处理（如正则匹配，添加，删改信息等）数据</li>
+<li>输出负责将处理后的数据发送出去  </li>
+</ul>
+<p>配置文件都应该有如下结构</p>
+<pre><code># The # character at the beginning of a line indicates a comment. Use
+# comments to describe your configuration.
+input {
+}
+# The filter part of this file is commented out to indicate that it is
+# optional.
+ filter {
+
+ }
+output {
+}
+</code></pre>
+
+<p>其中，行首的#标明这一行文字是注释。一个配置文件必须有<code>input</code>和<code>output</code>部分，而<code>filter</code>部分不是必需的  </p>
+<p>配合2.1节的设置，向<code>logstash-simple.conf</code>添加如下内容</p>
+<pre><code>input {
+    beats {
+        port =&gt; &quot;9200&quot;
+    }
+}
+
+output {
+    stdout { codec =&gt; rubydebug }
+}
+</code></pre>
+
+<p><strong>此处的端口号应该与filebeat中向logstash输出的端口一致。logstash启动后会自动监听指定的端口上所有的数据。output中的codec =&gt; rubydebug 设定了输出的格式。</strong></p>
+<p>完成后保存conf文件，并用如下命令启动logstash</p>
+<pre><code>./logstash -f logstash-simple.conf
+</code></pre>
+
+<p>确保希望抓取的文件（2.1节中设置的example.log文件）存在，然后启动Filebeat</p>
+<pre><code>./filebeat -e
+</code></pre>
+
+<p>稍等片刻后logstash会输出抓取到的信息。例如：</p>
+<pre><code>{
+    &quot;@timestamp&quot; =&gt; 2017-07-17T09:54:06.733Z,
+        &quot;offset&quot; =&gt; 325,
+      &quot;@version&quot; =&gt; &quot;1&quot;,
+          &quot;beat&quot; =&gt; {
+        &quot;hostname&quot; =&gt; &quot;My-MacBook-Pro.local&quot;,
+            &quot;name&quot; =&gt; &quot;My-MacBook-Pro.local&quot;
+    },
+    &quot;input_type&quot; =&gt; &quot;log&quot;,
+          &quot;host&quot; =&gt; &quot;My-MacBook-Pro.local&quot;,
+        &quot;source&quot; =&gt; &quot;/path/to/file/logstash-tutorial.log&quot;,
+       &quot;message&quot; =&gt; &quot;83.149.9.216 - - [04/Jan/2015:05:13:42 +0000] \&quot;GET /presentations/logstash-monitorama-2013/images/kibana-search.png HTTP/1.1\&quot; 200 203023 \&quot;http://semicomplete.com/presentations/logstash-monitorama-2013/\&quot; \&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.77 Safari/537.36\&quot;&quot;,
+          &quot;type&quot; =&gt; &quot;log&quot;,
+          &quot;tags&quot; =&gt; [
+        [0] &quot;beats_input_codec_plain_applied&quot;
+    ]
+}
+</code></pre>
+
+<p>如果抓取的文件中有多行文本，则类似的Json对象会出现多个,并按照抓取的顺序输出。</p>
+<p>至此，logstash已经成功地和filebeat联动。</p>
+<h3>2.3 输出至Elasticsearch</h3>
+<p>在output部分中设置 <code>elasticsearch{ hosts =&gt; [&quot;localhost:6000&quot;]}</code>，即：</p>
+<pre><code>output {
+    #stdout{codec =&gt;rubydebug}
+    elasticsearch{ hosts =&gt; [&quot;localhost:6000&quot;]}
+}
+</code></pre>
+
+<p>其中端口号应该与Elasticsearch配置的对应。详细内容请参阅Elasticsearch README.md以及Elasticsearch官方文档 
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html</a></p>
+<h3>2.4 Logstash输出详解</h3>
+<p>在logstash内部，每次输出的一个字典对象称为一个事件(<code>event</code>)，每个事件中含有若干字段(<code>field</code>)。 字段可能的数据类型包括：</p>
+<ul>
+<li>字符串（用双引号标识）</li>
+<li>数字</li>
+<li>布尔值（true或false）</li>
+<li>列表（用[]标识，列表的成员类型必须相同，可以是任意类型）</li>
+<li>字典（Hash， 用{}标识，键与值用 =&gt;关联，即 key =&gt; value 其中key必须是字符串，value可以是任意类型）</li>
+</ul>
+<h3>2.5 Logstash命令行选项</h3>
+<p>在修改过conf文件后，可以使用 <code>--config.test_and_exit</code>选项对配置文件进行验证，如</p>
+<pre><code>./logstash -f logstash-simple.conf --config.test_and_exit
+</code></pre>
+
+<p>使用--config.reload.automatic可以让logstash自动检测conf文件是否有变动并自动重新载入配置文件。当输入端设置了stdin时此选项无法使用。</p>
+<h2>3. 使用过滤器处理数据</h2>
+<p>过滤器相关的官方文档：<code>https://www.elastic.co/guide/en/logstash/current/filter-plugins.html</code></p>
+<p>下文将介绍几个常用的过滤器</p>
+<h3>3.1 Grok过滤器</h3>
+<p>grok过滤器是logstash中最常用的过滤器，它能借助正则表达式对任意文本进行处理。经过Grok处理后的数据会更容易被其他过滤器处理。</p>
+<h4>3.1.1 match选项与匹配规则</h4>
+<p>match命令是grok中最主要的命令，典型的格式如下</p>
+<pre><code>match =&gt; {&quot;fieldname&quot; =&gt; &quot;pattern&quot;}
+</code></pre>
+
+<p>示例</p>
+<pre><code>filter {
+  grok {
+    match =&gt; { &quot;message&quot; =&gt; &quot;%{IP:client} %{WORD:method} %{URIPATHPARAM:request} %
+    {NUMBER:bytes} %{NUMBER:duration}&quot; }
+  }
+}
+</code></pre>
+
+<p>fieldname为需要处理的字段，通常logstash会把从输入端接收到的原文保存在message字段下，因此对此字段进行处理
+pattern为使用的正则表达式。正则表达式应符合oniguruma标准（https://github.com/kkos/oniguruma/blob/master/doc/RE）</p>
+<p>每当match选项执行后，匹配规则所匹配到的数据都会被单独存入指定的字段中，具体方式请看下文。</p>
+<h5>3.1.1.1 oniguruma正则表达式</h5>
+<p>oniguruma的基本的格式为</p>
+<pre><code>%{SYNTAX:SEMANTIC}
+</code></pre>
+
+<p>SYNTAX为匹配规则的名称，SEMANTIC为匹配后存放数据的字段，</p>
+<p>例如日志条目： '55.3.244.1 GET /index.html 15824 0.043' 	会被如下规则匹配</p>
+<pre><code>%{IP:client} %{WORD:method} %{URIPATHPARAM:request} %{NUMBER:bytes} %{NUMBER:duration}
+</code></pre>
+
+<p>匹配后会新增以下字段</p>
+<pre><code>client: 55.3.244.1
+method: GET
+request: /index.html
+bytes: 15824
+duration: 0.043
+</code></pre>
+
+<p>完整的配置文件以供参考：</p>
+<pre><code>input {
+  file {
+    path =&gt; &quot;/var/log/http.log&quot;
+  }
+}
+filter {
+  grok {
+    match =&gt; { &quot;message&quot; =&gt; &quot;%{IP:client} %{WORD:method} %{URIPATHPARAM:request} %{NUMBER:bytes} %{NUMBER:duration}&quot; }
+  }
+}
+</code></pre>
+
+<p>如果一个匹配规则中SEMANTIC为空，则匹配到的数据不会被单独保存到一个字段中。	</p>
+<p>Grok自带非常丰富的匹配规则，具体可在
+<code>logstash安装文件夹\vendor\bundle\jruby\1.9\gems\logstash-patterns-core-4.1.0\patterns</code> 下查看</p>
+<h5>3.1.1.2使用常规的正则表达式</h5>
+<p>Grok本身是建立在正则表达式上的，所以普通的正则表达式也可通用。格式如下：</p>
+<pre><code>(?&lt;field_name&gt;the pattern here)
+</code></pre>
+
+<p>例如：</p>
+<pre><code>(?&lt;queue_id&gt;[0-9A-F]{10,11}) 会匹配一个10或11位的16进制数并保存到queue_id字段中
+</code></pre>
+
+<h5>3.1.1.3 自定义匹配规则</h5>
+<p>为简化配置文件，可以自定义配置规则并将其保存在文件中方便调用。例如：</p>
+<p>可以将</p>
+<pre><code>POSTFIX_QUEUEID [0-9A-F]{10,11}
+</code></pre>
+
+<p>保存在logstash安装文件夹/bin/patterns/postfix文件中,并在grok中定义 patterns_dir =&gt; [&quot;./patterns&quot;]，然后在match选项中使用。即：</p>
+<pre><code>match =&gt; { &quot;message&quot; =&gt; &quot;%{POSTFIX_QUEUEID:queue_id}: %{GREEDYDATA:syslog_message}&quot; }
+</code></pre>
+
+<p>完整的filter部分以供参考：</p>
+<pre><code>filter {
+  grok {
+    patterns_dir =&gt; [&quot;./patterns&quot;]
+    match =&gt; { &quot;message&quot; =&gt; &quot;%{POSTFIX_QUEUEID:queue_id}: %{GREEDYDATA:syslog_message}&quot; }
+  }
+}
+</code></pre>
+
+<p>测试match命令中使用的匹配规则是否正确，可以使用grok debugger <code>http://grokdebug.herokuapp.com/</code> （需要科学上网）  </p>
+<pre><code>与本文件同目录下的logstash_filters.txt中包含了nginx和tomcat用的匹配规则
+</code></pre>
+
+<h4>3.1.2 多重匹配以及其他进阶技巧</h4>
+<p>1）match选项对应的值可以是一个字符串列表，其成员为想要尝试匹配的匹配规则，例如：</p>
+<pre><code>filter {
+  grok { match =&gt; { &quot;message&quot; =&gt; [ &quot;Duration: %{NUMBER:duration}&quot;, &quot;Speed: %{NUMBER:speed}&quot; ] } }
+}
+</code></pre>
+
+<p>若使用多个匹配规则进行match，建议同时也设置break<em>on</em>match。该选项类型为bool，默认值为true。在设定为true时，match将在发现第一个完全匹配的匹配规则是停止。否则会将所有匹配规则都匹配一遍。</p>
+<p>2）tag<em>on</em>failure选项为字符串列表，默认为[&quot;_grokparsefailure&quot;]。
+每次match匹配失败（所有的匹配规则都无法匹配）时，会自动添加列表中的字符串到事件的标签tag列表中。</p>
+<h3>3.2 Date过滤器</h3>
+<p>默认情况下，filebeat每次输出会生成一个@timestamp域，并将其设为输出时的时间。而Kibana默认会以@timestamp的值作为各条目的时间戳记，并以此为排序基准。实际使用过程中，很多日志条目都包含时间戳记，并且我们希望能够使用日志内的时间信息对日志进行排序。为此需要用到date过滤器</p>
+<p>date过滤器是专门用于解析日期时间的过滤器。每当date完成解析后，@timestamp字段（或其他某个指定的字段）会被解析出来的值覆盖。由此可以达到预期的目标。</p>
+<p>官方文档：<code>https://www.elastic.co/guide/en/logstash/current/plugins-filters-date.html</code></p>
+<h4>3.2.1 match选项</h4>
+<p>类似于grok，date也使用match选项作为其主要功能选项。Date的match选项用法有所不同，具体如下。</p>
+<pre><code>match =&gt; [&quot;source_field&quot;,&quot;format1&quot;,&quot;format2&quot;,...]
+</code></pre>
+
+<p>其中source<em>field为包含有想要的日期信息的字段。format为符合 joda-time api的格式匹配规则（http://www.joda.org/joda-time/key</em>format.html）。 例如：</p>
+<pre><code>date {
+    match =&gt; [ &quot;logdate&quot;, &quot;MMM dd yyyy HH:mm:ss&quot; ]
+}
+</code></pre>
+
+<p>以及</p>
+<pre><code>match =&gt; [ &quot;logdate&quot;, &quot;MMM dd yyyy HH:mm:ss&quot;,
+      &quot;MMM  d yyyy HH:mm:ss&quot;, &quot;ISO8601&quot; ]
+</code></pre>
+
+<p>match匹配完成时@timestamp字段（或其他由target选项指定的字段）会被解析出来的值覆盖。		</p>
+<h5>3.2.1.1 内置日期匹配规则</h5>
+<ul>
+<li>ISO8601   符合ISO8601标准的日期，如 2011-04-19T03:44:01.103Z</li>
+<li>UNIX      UNIX标准时，以秒为单位的浮点数</li>
+<li>UNIX_MS   UNIX标准时，以毫秒为单位的整数</li>
+</ul>
+<p>使用内置匹配规则时直接填写名称即可</p>
+<h5>3.2.1.2 常用自定义日期匹配规则格式</h5>
+<pre><code>年份
+yyyy 四位数年份，如1999，2015等
+yy   两位数年份，如15表示2015年
+
+月份
+M    短数字月份，如1，5,10,12等
+MM   两位数月份，如01,05,10,12等
+MMM  月份英文缩写，如Jan, May, Oct,Dec等
+MMMM 月份英文全称，如January
+
+日期
+d    短数字日期，如1,6,16,30等
+dd   两位数日期，如01,06，16等
+
+小时（24小时制，0-24）
+H    短数字小时，如0表示午夜，12为正午
+HH   两位数小时，如00,06,12,23等
+
+分钟（0-59）
+m    短数字分钟
+mm   两位数分钟
+
+秒（0-59）
+s   短数字秒数
+ss  两位数秒数
+</code></pre>
+
+<h4>3.2.2 target选项</h4>
+<p>若希望覆盖其他字段而非@timestamp，可以使用target选项，格式为</p>
+<pre><code>target =&gt; “fieldname”
+</code></pre>
+
+<h3>3.3 Mutate过滤器</h3>
+<p>Mutate过滤器用于修改字段内的数据</p>
+<h4>3.3.1 Covert选项</h4>
+<pre><code>Convert选项用于转换字段数据的类型，格式为：
+  mutate {
+    convert =&gt; { &quot;fieldname&quot; =&gt; &quot;&lt;type&gt;&quot; }
+  } 
+</code></pre>
+
+<p>可用的type名称包括 boolean，integer，string。
+如果要转换的字段是一个数组，则其所有成员都会被转换；如果要转换的字段是一个字典，则不会发生任何变化。</p>
+<p>在尝试转换为bool类型时，
+以下数据会被转换为true ：</p>
+<pre><code>true, t, yes, y, 1
+</code></pre>
+
+<p>以下数据会被转换为false：</p>
+<pre><code>false, f, no, n, 0
+</code></pre>
+
+<h4>3.3.2 add_field选项</h4>
+<p><code>add_field</code>允许添加自定义的字段，且允许使用%{}来引用其他字段，如</p>
+<pre><code>add_field =&gt; { &quot;foo_%{somefield}&quot; =&gt; &quot;Hello world, from %{host}&quot; }
+</code></pre>
+
+<h4>3.3.3 remove_field选项</h4>
+<p>使用<code>remove_field</code>来移除指定域，如
+	remove<em>field =&gt;[&quot;offset&quot;,&quot;beat&quot;,&quot;@version&quot;,&quot;input</em>type&quot;]</p>
+<h4>3.3.4 if-else语句</h4>
+<p>在filter中允许使用if else进行条件性操作
+如：</p>
+<pre><code>if [AccessClass] 
+{
+    mutate { add_tag =&gt; [&quot;Catalina&quot;] }
+}
+else
+{
+    mutate { add_tag =&gt;[&quot;Nginx&quot;] }
+}
+</code></pre>
+
+<p>当AccessClass字段存在时，添加标签Catalina，否则添加标签Nginx</p>
+<h3>3.4 Logstash的多行事件（不推荐使用）</h3>
+<p>Logstash本身也可以将多个事件合并为一个事件。按照Elastic官方的文档，logstash的多行事件并不安全，有可能造成编码错误，因此应当作为备用手段。在可以使用Filebeat以及其他日志文件处理工具时，应当优先考虑这些选项。</p>
+<p>若要使用logstash的多行事件，可以在conf文件中对想要设定的input部分进行如下设定</p>
+<pre><code>input {
+  stdin {
+    codec =&gt; multiline {
+      pattern =&gt; &quot;pattern, a regexp&quot;
+      negate =&gt; &quot;true&quot; or &quot;false&quot;
+      what =&gt; &quot;previous&quot; or &quot;next&quot;
+    }
+  }
+}   
+</code></pre>
+
+<p>类似于filebeat的多行设定，pattern为正则表达式，negate为bool类型表示是在正则表达式匹配还是不匹配时激活多行事件，what类似于match控制当前行是向前还是向后合并。 其中negate是可选的，默认为false。</p>
+<p>下面的例子可以用于处理java异常日志（即空格开头的行向前合并）</p>
+<pre><code>input {
+  stdin {
+    codec =&gt; multiline {
+      pattern =&gt; &quot;^\s&quot;
+      what =&gt; &quot;previous&quot;
+    }
+  }
+}
+</code></pre>
+
+<p><br />	</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
