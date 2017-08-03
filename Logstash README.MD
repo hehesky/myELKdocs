@@ -289,13 +289,18 @@ Grok本身是建立在正则表达式上的，所以普通的正则表达式也�
 
 	与本文件同目录下的logstash_filters.txt中包含了nginx和tomcat用的匹配规则
 
-####3.1.2 多重匹配以及其他进阶技巧
+####3.1.2 多重匹配
 
 1）match选项对应的值可以是一个字符串列表，其成员为想要尝试匹配的匹配规则，例如：
 
 	filter {
-	  grok { match => { "message" => [ "Duration: %{NUMBER:duration}", "Speed: %{NUMBER:speed}" ] } }
-	}
+	  	grok { 
+				match => { "message" => [ "Duration: %{NUMBER:duration}", 
+										"Speed: %{NUMBER:speed}"]
+						 } 
+			 } 
+		}
+	
 
 若使用多个匹配规则进行match，建议同时也设置break_on_match。该选项类型为bool，默认值为true。在设定为true时，match将在发现第一个完全匹配的匹配规则是停止。否则会将所有匹配规则都匹配一遍。
 

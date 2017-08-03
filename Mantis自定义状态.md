@@ -73,10 +73,12 @@
 
 如果成功添加，建议调整工作流页面中的设定，使其能够匹配新添加的状态。
 
-如果新添加的状态显示为类似于：`@66@`
+如果新添加的状态显示为类似于：`@66@` `@60@`
 
 则请检查之前编辑的文件内容是否正确，且使用了正确的文件名
 
 - `custom_strings_inc.php` 以及 `custom_constants_inc.php` 中的（s）不能少
 - `custom_strings_inc.php` 文件中简体中文为chinese_simplified
 - `switch`语句应该包含`break`
+
+<br />

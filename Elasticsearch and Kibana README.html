@@ -307,8 +307,7 @@ img {
 <pre><code>java -version
 </code></pre>
 
-<p>访问Elasticsearch 官方网站下载安装包 https://www.elastic.co/downloads/elasticsearch
-下载后解压即可</p>
+<p>访问Elasticsearch 官方网站下载安装包 https://www.elastic.co/downloads/elasticsearch 下载后解压即可</p>
 <p>也可以通过deb和rpm命令进行安装，详情请参阅官方说明https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html
 Windows环境下也可以使用.msi安装文件</p>
 <p>安装完成后切换到Elasticsearch安装目录，启动Elasticsearch</p>
@@ -320,9 +319,14 @@ Windows环境下也可以使用.msi安装文件</p>
 </code></pre>
 
 <p>编辑 <code>config/elasticsearch.yml</code>可以修改Elasticsearch绑定的ip与端口（默认localhost:9200）</p>
+<p>Elasticsearch 初次启动常见错误</p>
+<ol>
+<li>（Linux下）提示最大线程数，文件描述符数以及虚拟内存太少。 解决方法：编辑<code>/etc/security/limits.conf</code>以及<code>/ect/sysctl.conf</code>文件，使得上述参数符合Elasticsearch的要求。完成后执行<code>sysctl -p</code> 刷新系统设定。</li>
+<li>(CentOS下)启动时提示<code>System filter failed to install</code>。发生此问题主要是因为Centos不支持系统过滤器，在配置文件中禁用即可。 解决方法：在<code>elascticsearch/config/elasticsearch.yml</code>文件中，设定<code>bootstrap.sys_call_filter: false</code></li>
+</ol>
 <h2>2.安装Kibana</h2>
 <p>访问https://www.elastic.co/downloads/kibana 获取最新版的Kibana安装包</p>
-<p>解压/安装后，进入Kibana安装目录，编辑config/kibana.yml，设定elasitcsearch.url使其指向一个运行中的Elasticsearch实例，例如</p>
+<p>解压/安装后，进入Kibana安装目录，编辑<code>config/kibana.yml</code>，设定elasitcsearch.url使其指向一个运行中的Elasticsearch实例，例如</p>
 <pre><code>elasticsearch.url: &quot;http://localhost:9200&quot;
 </code></pre>
 
@@ -331,7 +335,8 @@ Windows环境下也可以使用.msi安装文件</p>
 </code></pre>
 
 <p>在浏览器中访问<code>http://localhost:5601</code>如果安装正确则会显示Kibana的启动页面</p>
-<p>需要注意的是，Kibana启动必须要有一个运行中的Elasticsearch实例。故两者是天然联动的</p>
+<p>默认状态下kibana会监听<code>localhost:5601</code>，但可以修改<code>config/kibana.yml</code>使其监听其他地址和端口，如<code>0.0.0.0:8000</code></p>
+<p>需要注意的是，Kibana启动必须要有一个运行中的Elasticsearch实例,否则Kibana会终止运行</p>
 <h2>3.使用Kibana的dev tool对Elasticsearch中的数据进行操作</h2>
 <p>进入kibana页面后，点击左侧导航栏中的Dev Tool，打开开发者控制台。</p>
 <p>在主界面的左边可以输入HTTP/REST 指令，按执行按钮（三角形）后在右侧可以看到运行结果</p>
@@ -347,7 +352,7 @@ Windows环境下也可以使用.msi安装文件</p>
 
 <ul>
 <li>
-<p>Elasticsearch 是分布式的全文检索系统。每个运行的Elasticsearch实例称为一个节点（<code>node</code>），一或多个节点可以形成一个集群（<code>cluster</code>）。集群内的节点共同负责数据的存储、备份和查询。任何一个节点都必须从属于一个集群（即使这个集群只有一个节点）。</p>
+<p>Elasticsearch 是分布式的全文检索系统。每个运行的Elasticsearch实例称为一个节点（<code>node</code>），一或多个节点可以形成一个集群（<code>cluster</code>）。集群内的节点共同负责数据的存储、备份和查询。任何一个节点都必须从属于一个集群（即使这个集群只有一个节点）。一个集群负责维护一或多个索引。</p>
 </li>
 <li>
 <p>Elasticsearch的集群健康状态分为 <code>red</code> <code>yellow</code> <code>green</code> 三种。其中<code>red</code>表示有严重错误无法使用；<code>yellow</code>表示有非致命错误（比如备份节点未上线）但可以使用；<code>green</code>表示一切正常。</p>

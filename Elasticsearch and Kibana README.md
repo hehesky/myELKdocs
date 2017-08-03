@@ -19,8 +19,7 @@ Kibana官方文档：
 
 	java -version
 
-访问Elasticsearch 官方网站下载安装包 https://www.elastic.co/downloads/elasticsearch
-下载后解压即可
+访问Elasticsearch 官方网站下载安装包 https://www.elastic.co/downloads/elasticsearch 下载后解压即可
 
 也可以通过deb和rpm命令进行安装，详情请参阅官方说明https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html
 Windows环境下也可以使用.msi安装文件
@@ -34,10 +33,15 @@ Windows环境下也可以使用.msi安装文件
 	curl http://localhost:9200/
 
 编辑 `config/elasticsearch.yml`可以修改Elasticsearch绑定的ip与端口（默认localhost:9200）
+
+**Elasticsearch 初次启动常见错误**
+
+1. （Linux下）提示最大线程数，文件描述符数以及虚拟内存太少。 解决方法：编辑`/etc/security/limits.conf`以及`/ect/sysctl.conf`文件，使得上述参数符合Elasticsearch的要求。完成后执行`sysctl -p` 刷新系统设定。
+2. (CentOS下)启动时提示`System filter failed to install`。发生此问题主要是因为Centos不支持系统过滤器，在配置文件中禁用即可。 解决方法：在`elascticsearch/config/elasticsearch.yml`文件中，设定`bootstrap.sys_call_filter: false`
 ##2.安装Kibana
 访问https://www.elastic.co/downloads/kibana 获取最新版的Kibana安装包
 
-解压/安装后，进入Kibana安装目录，编辑config/kibana.yml，设定elasitcsearch.url使其指向一个运行中的Elasticsearch实例，例如
+解压/安装后，进入Kibana安装目录，编辑`config/kibana.yml`，设定elasitcsearch.url使其指向一个运行中的Elasticsearch实例，例如
 
 	elasticsearch.url: "http://localhost:9200"
 	
@@ -47,7 +51,9 @@ Windows环境下也可以使用.msi安装文件
 	
 在浏览器中访问`http://localhost:5601 `如果安装正确则会显示Kibana的启动页面
 
-需要注意的是，Kibana启动必须要有一个运行中的Elasticsearch实例。故两者是天然联动的
+默认状态下kibana会监听`localhost:5601`，但可以修改`config/kibana.yml`使其监听其他地址和端口，如`0.0.0.0:8000`
+
+需要注意的是，Kibana启动必须要有一个运行中的Elasticsearch实例,否则Kibana会终止运行
 
 ##3.使用Kibana的dev tool对Elasticsearch中的数据进行操作
 进入kibana页面后，点击左侧导航栏中的Dev Tool，打开开发者控制台。
@@ -65,9 +71,7 @@ Windows环境下也可以使用.msi安装文件
 	1475247709 17:01:49  elasticsearch green           1         1      0   0    0    0        0             0                  -                100.0%
 	
 
-
-
-- Elasticsearch 是分布式的全文检索系统。每个运行的Elasticsearch实例称为一个节点（`node`），一或多个节点可以形成一个集群（`cluster`）。集群内的节点共同负责数据的存储、备份和查询。任何一个节点都必须从属于一个集群（即使这个集群只有一个节点）。
+- Elasticsearch 是分布式的全文检索系统。每个运行的Elasticsearch实例称为一个节点（`node`），一或多个节点可以形成一个集群（`cluster`）。集群内的节点共同负责数据的存储、备份和查询。任何一个节点都必须从属于一个集群（即使这个集群只有一个节点）。一个集群负责维护一或多个索引。
 
 
 - Elasticsearch的集群健康状态分为 `red` `yellow` `green` 三种。其中`red`表示有严重错误无法使用；`yellow`表示有非致命错误（比如备份节点未上线）但可以使用；`green`表示一切正常。

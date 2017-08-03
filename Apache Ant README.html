@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Apache Ant README</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Apache Ant简要说明</h1>
+<p>作者/编译：暴力膜的编译器<br />
+日期：2017年8月</p>
+<p>注：本文基于Apache Ant 1.10.1版，如与官方文档有出入，则以官方文档为准</p>
+<p>Apache Ant官方文档： <code>https://ant.apache.org/manual/</code></p>
+<blockquote>
+<p>从前有只蚂蚁会上树，直到它膝盖中了一架阿帕奇</p>
+</blockquote>
+<h2>1.获取Ant</h2>
+<p>Appache Ant可以直接从官网下载安装包，也可以通过RPM的方式获取。如果希望使用RPM，请访问<code>http://www.jpackage.org/</code></p>
+<h3>1.1下载</h3>
+<p>访问Ant官方下载页面<a href="http://ant.apache.org/bindownload.cgi">http://ant.apache.org/bindownload.cgi</a>，下载zip文件（或者tar文件亦可）。在本文写作时官方推荐的版本为<code>1.10.1</code>以及<code>1.9.9</code>。其中<code>1.10.1</code>需要Java 8（或更新）的运行环境，<code>1.9.9</code>需要Java 5（或更新）。条件允许时应尽量使用<code>1.10.x</code>或更新版本。</p>
+<p>下载后直接解压，并配置相关环境变量：</p>
+<ul>
+<li>将Ant的解压目录（如<code>D:\apache-ant-1.10.1</code>）设定为<code>ANT_HOME</code></li>
+<li>将<code>$ANT_HOME\bin</code>加入PATH变量中</li>
+</ul>
+<p>在控制台运行如下命令检查Ant是否正确配置</p>
+<pre><code>ant -version
+</code></pre>
+
+<p>应当返回如下信息</p>
+<pre><code>Apache Ant(TM) version 1.10.1 compiled on February 2 2017
+</code></pre>
+
+<h2>2.关于Apache Ant</h2>
+<p>Apache Ant是适用于Java开发的编译、打包、整理工具。与GNU Make的很多功能相似，但有大量针对Java特性的优化。同时理论上也支持对C/C++等语言的编译。 Ant本身基于java，因此有着良好的跨平台兼容性，相比make只能在unix环境运行更加适合java项目。</p>
+<p>Ant主要通过解析一个（或多个）XML文件来定义自身的行为，如<code>build.xml</code>。当在控制台运行<code>ant</code>指令时，Ant会自动在当前目录寻找<code>build.xml</code>（默认目标），并尝试解析。解析成功后会执行文件中定义的默认指令。</p>
+<p>用户可以通过<code>-f</code>选项来指定XML文件给Ant使用，如</p>
+<pre><code>ant -f myconfig.xml
+</code></pre>
+
+<p>为了简化说明，下文中尽量都使用<code>build.xml</code>为Ant的配置文件</p>
+<h3>2.1编写简单的build.xml文件</h3>
+<p>本节将介绍一个简单实例，说明build.xml文件的结构以及如何使用ant</p>
+<h4>2.1.1准备工作</h4>
+<p>在一空白目录下，新建<code>build.xml</code>  </p>
+<p>在该目录下新建目录<code>src</code>，并将下述java代码保存至<code>src/oata/HelloWorld.java</code></p>
+<pre><code>package oata;
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello World&quot;);
+    }
+}
+</code></pre>
+
+<p>上述代码仅为一个简单的helloworld程序。</p>
+<h4>2.1.2开始编写build.xml</h4>
+<p>打开并编辑之前创建的<code>build.xml</code>  </p>
+<p>首先添加<code>&lt;project&gt;&lt;/project&gt;</code>标签对，此为文档的顶层标签。之后在<code>&lt;project&gt;</code>中添加<code>default</code>属性，值为任意。如：</p>
+<pre><code>&lt;project default=&quot;info&quot;&gt;&lt;/project&gt;
+</code></pre>
+
+<p>default属性设定了该文件的默认指令，示例中为<code>info</code>指令。接下来编写info指令。</p>
+<p>指令使用<code>&lt;target&gt;&lt;/target&gt;</code>标签，并用属性name命名，如：</p>
+<pre><code>&lt;target name=&quot;info&quot;&gt;&lt;/target&gt;
+</code></pre>
+
+<p>现在info指令还为空。向其中添加任务（task），如<code>echo</code>:</p>
+<pre><code>&lt;project default=&quot;info&quot;&gt;
+    &lt;target name=&quot;info&quot;&gt; 
+        &lt;echo&gt;&quot;Hello World with Ant.&quot;&lt;/echo&gt; 
+    &lt;/target&gt;
+&lt;/project&gt;
+</code></pre>
+
+<p>在Ant中，指令（<code>target</code>）是包含一组任务（<code>task</code>）的容器，是能执行最小单位。一个指令可以包括一或多个任务（<code>task</code>）。一个任务为某个特定的行为，如向控制台输出（即<code>echo</code>），编译（<code>javac</code>以及<code>jspc</code>)，打包（<code>jar</code>和<code>war</code>）等等。</p>
+<p>完成后在build.xml所在文件夹打开控制台，执行</p>
+<pre><code>ant info
+</code></pre>
+
+<p>应当显示</p>
+<pre><code>Apache Ant(TM) version 1.10.1 compiled on February 2 2017
+
+D:\random_stuff\project&gt;ant info
+Buildfile: D:\random_stuff\project\build.xml
+
+info:
+     [echo] &quot;Hello World with Ant.&quot;
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+</code></pre>
+
+<h4>2.1.3编译、打包与运行</h4>
+<p>接下来将尝试编译、打包和运行之前准备的HelloWorld.java文件。</p>
+<p><strong><em>在开始前请先确保该文件能正常编译与运行（即直接使用javac和java指令）。</em></strong></p>
+<p>向<code>build.xml</code>文件中添加四个target，分别命名为compile，jar，run和clean</p>
+<pre><code>&lt;target name=&quot;compile&quot; &gt;
+    &lt;mkdir dir=&quot;debug\class&quot; /&gt;
+    &lt;javac srcdir=&quot;src&quot; destdir=&quot;debug\class&quot; includeantruntime=&quot;false&quot;/&gt;
+&lt;/target&gt;
+
+&lt;target name=&quot;jar&quot;&gt;
+    &lt;mkdir dir=&quot;debug\jar&quot; /&gt;
+    &lt;jar destfile=&quot;debug\jar\HelloWorld.jar&quot; basedir=&quot;debug\class&quot;&gt;
+        &lt;manifest&gt;
+            &lt;attribute name=&quot;Main-Class&quot; value=&quot;oata.HelloWorld&quot; /&gt;
+        &lt;/manifest&gt;
+    &lt;/jar&gt;
+&lt;/target&gt;
+
+&lt;target name=&quot;run&quot;&gt;
+    &lt;java jar=&quot;debug\jar\HelloWorld.jar&quot; fork=&quot;true&quot; /&gt;
+&lt;/target&gt;
+
+&lt;target name=&quot;clean&quot;&gt;
+    &lt;delete includeEmptyDirs=&quot;true&quot;&gt;
+        &lt;fileset dir=&quot;debug&quot; includes=&quot;**/*&quot;/&gt;
+    &lt;/delete&gt;
+&lt;/target&gt;
+</code></pre>
+
+<p>其中：</p>
+<ul>
+<li>
+<code>mkdir</code>负责创建目录（如目录已存在则不进行如何操作），且支持创建多层目录。
+<ul>
+<li><code>dir</code>属性为要创建的路径</li>
+</ul>
+</li>
+<li>
+<code>javac</code>负责调用javac编译器
+<ul>
+<li>
+<code>src</code>为源码目录
+<ul>
+<li><code>destdir</code>为产生的class文件存放目录</li>
+<li><code>includeantruntime</code>为布尔类型，设定编译时是否载入AntRuntime库，官方文档上推荐设为false（默认值为true）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<code>jar</code>负责将class文件打包为jar文件
+<ul>
+<li><code>destfile</code>为输出文件目录</li>
+<li><code>basedir</code>为开始打包的顶层目录</li>
+<li><code>jar</code>任务中必须包含一个<code>manifest</code>子元素，且<code>manifest</code>中至少要设定Main-Class，即<code>&lt;attribute name=&quot;Main-Class&quot; value=&quot;path.to.Main-Class&quot; /&gt;</code></li>
+</ul>
+</li>
+<li>
+<code>java</code>负责运行指定的文件。
+<ul>
+<li><code>jar</code>指定要执行的jar文件</li>
+<li><code>fork</code>为bool类型，设定是否要新建一个JVM进程来运行文件。一般推荐设为true</li>
+</ul>
+</li>
+<li>
+<code>delete</code>负责删除指定的文件（以及目录）
+<ul>
+<li><code>delete</code>可以接受<code>file</code>或<code>dir</code>属性，前者指向文件，后者指向文件夹</li>
+<li>
+<code>delete</code>也可以接受一个嵌套的资源集合（resource collection，如上文中的<code>fileset</code>)。
+<ul>
+<li>关于资源集合在后文有更多信息</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>编辑并保存buid.xml文件，并在控制台执行</p>
+<pre><code>ant compile
+ant jar
+ant run
+</code></pre>
+
+<p>或者也可以将三个命令合并为</p>
+<pre><code>ant compile jar run
+</code></pre>
+
+<p>成功后应当有如下输出</p>
+<pre><code>Buildfile: D:\random_stuff\project\build.xml
+
+compile:
+    [mkdir] Created dir: D:\random_stuff\project\debug\class
+    [javac] Compiling 1 source file to D:\random_stuff\project\debug\class
+
+jar:
+    [mkdir] Created dir: D:\random_stuff\project\debug\jar
+      [jar] Building jar: D:\random_stuff\project\debug\jar\HelloWorld.jar
+
+run:
+     [java] Hello World +1
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+</code></pre>
+
+<p>之后运行</p>
+<pre><code>ant clean
+</code></pre>
+
+<p>观察生成的class和jar文件是否被删除</p>
+<p>至此build.xml文件已经具备了基本的结构与功能</p>
+<h3>2.2改进build.xml文件</h3>
+<p>到目前为止，<code>build.xml</code>文件中的所有路径都是常量，应当将其设定为变量方便未来编辑。</p>
+<p>另外compile jar run命令都可以任意顺序执行，容易报错。</p>
+<p>接下来将针对这两点对build.xml文件进行改进</p>
+<h3>2.2.1利用target的依赖（depends）属性控制执行顺序</h3>
+<p>在build.xml文件中，可以为指令<code>target</code>配置<code>depends</code>属性。</p>
+<p>例如，希望在执行jar指令前应该先执行compile，则可以设定：</p>
+<pre><code>&lt;target name=&quot;jar&quot; depends=&quot;compile&quot;&gt;
+    ...
+&lt;/target&gt;
+</code></pre>
+
+<p>此时，如果直接执行<code>ant jar</code>，ant会先执行<code>compile</code>指令，再执行jar</p>
+<p>同样的，可以要求ant在执行<code>run</code>之前必须执行<code>jar</code>，即：</p>
+<pre><code>&lt;target name=&quot;run&quot; depends=&quot;jar&quot;&gt;
+    ...
+&lt;/target&gt;
+</code></pre>
+
+<h3>2.2.2利用property设定变量</h3>
+<p>在<code>&lt;project&gt;</code>标签下可以通过添加<code>&lt;property&gt;</code>标签来定义变量，例如</p>
+<pre><code>&lt;property name=&quot;debug.dir&quot; value=&quot;debug&quot; /&gt;
+</code></pre>
+
+<p>由此定义的变量可以被调用，格式为<code>${some_name}</code>，例如：</p>
+<pre><code>&lt;property name=&quot;jar.dir&quot; value=&quot;${debug.dir}\jar&quot; /&gt;
+</code></pre>
+
+<p>至此我们可以尝试将之前build.xml中所有的路径替换为定义的变量，即</p>
+<pre><code>&lt;project default=&quot;info&quot;&gt;
+    &lt;property name=&quot;debug.dir&quot; value=&quot;debug&quot; /&gt;
+    &lt;property name=&quot;jar.dir&quot; value=&quot;${debug.dir}\jar&quot; /&gt;
+    &lt;property name=&quot;class.dir&quot; value=&quot;${debug.dir}\class&quot; /&gt;
+
+    &lt;target name=&quot;info&quot;&gt; 
+        &lt;echo&gt;&quot;Hello World with Ant. Try compile, jar and run!&quot;&lt;/echo&gt; 
+    &lt;/target&gt;
+
+    &lt;target name=&quot;compile&quot; &gt;
+        &lt;mkdir dir=&quot;${class.dir}&quot; /&gt;
+        &lt;javac srcdir=&quot;src&quot; destdir=&quot;${class.dir}&quot; includeantruntime=&quot;false&quot;/&gt;
+    &lt;/target&gt;
+
+    &lt;target name=&quot;jar&quot; depends=&quot;compile&quot;&gt;
+        &lt;mkdir dir=&quot;${jar.dir}&quot; /&gt;
+        &lt;jar destfile=&quot;${jar.dir}\HelloWorld.jar&quot; basedir=&quot;${class.dir}&quot;&gt;
+            &lt;manifest&gt;
+                &lt;attribute name=&quot;Main-Class&quot; value=&quot;oata.HelloWorld&quot; /&gt;
+            &lt;/manifest&gt;
+        &lt;/jar&gt;
+    &lt;/target&gt;
+
+    &lt;target name=&quot;run&quot; depends=&quot;jar&quot;&gt;
+        &lt;java jar=&quot;${jar.dir}\HelloWorld.jar&quot; fork=&quot;true&quot; /&gt;
+    &lt;/target&gt;
+
+    &lt;target name=&quot;clean&quot;&gt;
+        &lt;delete includeEmptyDirs=&quot;true&quot;&gt;
+            &lt;fileset dir=&quot;${debug.dir}&quot; includes=&quot;**/*&quot;/&gt;
+        &lt;/delete&gt;
+    &lt;/target&gt;
+&lt;/project&gt;
+</code></pre>
+
+<h2>3.深入Ant</h2>
+<p>Apache Ant的官方文档中有对所有task的详细说明，请参阅
+<a href="http://ant.apache.org/manual/tasksoverview.html">http://ant.apache.org/manual/tasksoverview.html</a></p>
+<h3>3.1关于指令<code>target</code></h3>
+<p>1)复杂依赖关系<br />
+指令的依赖(<code>depends</code>)属性保证该指令执行前所有的依赖项都会至少被执行过一次。  </p>
+<p>在Ant中，一个target可以有多个依赖关系，用逗号分隔，例如：</p>
+<pre><code>&lt;target name=&quot;A&quot;/&gt;
+&lt;target name=&quot;B&quot; depends=&quot;A&quot;/&gt;
+&lt;target name=&quot;C&quot; depends=&quot;B&quot;/&gt;
+&lt;target name=&quot;D&quot; depends=&quot;C,B,A&quot;/&gt;
+</code></pre>
+
+<p>其中指令B依赖于A，C依赖于B，D依赖于C,B,A<br />
+当一个指令有多个依赖项时，Ant会尝试从左向右执行依赖项。在执行依赖项时，若依赖项也存在依赖关系，则会以递归地方式执行依赖项。例如，在上述文件设定的环境中直接执行 <code>ant D</code>，最终的执行顺序为：</p>
+<pre><code>Call-Graph:  A --&gt; B --&gt; C --&gt; D
+</code></pre>
+
+<p>在解析D的依赖关系时，先要执行C；而执行C需要先执行B；执行B需要先执行A。 因此会按照A-B-C的顺序执行依赖项。当依赖项C完成时，ant检查D的其他依赖项，发现B和A都已经被执行了。此时则可以直接执行D。</p>
+<p>2）<code>if/unless</code>属性<br />
+指令（<code>target</code>)以及其他一些任务（包括<code>fail</code>,<code>junit</code>等等），可以设定<code>if</code>或<code>unless</code>属性，使其只在特定满足（或不满足）特定条件时执行。 </p>
+<ul>
+<li>if的值为已定义的property名称或值为true的表达式时，允许指令执行</li>
+<li>unless的值为未定义的property名称或值为false的表达式时，允许指令执行  </li>
+</ul>
+<p>（关于property后文有更多介绍）。  </p>
+<p>例如：</p>
+<pre><code>&lt;target name=&quot;-check-use-file&quot; unless=&quot;file.exists&quot;&gt;
+    &lt;available property=&quot;file.exists&quot; file=&quot;some-file&quot;/&gt;
+&lt;/target&gt;
+&lt;target name=&quot;use-file&quot; depends=&quot;-check-use-file&quot; if=&quot;file.exists&quot;&gt;
+    &lt;!-- do something requiring that file... --&gt;
+&lt;/target&gt;
+&lt;target name=&quot;lots-of-stuff&quot; depends=&quot;use-file,other-unconditional-stuff&quot;/&gt;
+</code></pre>
+
+<p>有三个指令<code>-check-use-file</code>，<code>use-file</code>和<code>lots-of-stuff</code>，并涉及到名为<code>file.exists</code>的property。如果直接执行<code>lots-of-stuff</code>，Ant会：</p>
+<ul>
+<li>根据依赖项执行<code>use-file</code></li>
+<li>执行<code>use-file</code>时，根据依赖关系，先执行<code>-check-use-file</code></li>
+<li>
+因为<code>file.exists</code>不存在（之前没有定义），因此unless将允许运行<code>-check-use-file</code>
+<ul>
+<li>available任务会检查指定的文件<code>some-file</code>是否存在。如果存在就将<code>file.exists</code>设为“true”，否则就设为未定义状态（即不存在）</li>
+</ul>
+</li>
+<li>返回<code>use-file</code>指令，如果<code>file.exists</code>存在，ant会继续执行指令。否则就会跳过<code>use-file</code>指令</li>
+<li>返回<code>lots-of-stuff</code>指令。该指令为空，不做操作</li>
+</ul>
+<h3>3.2关于property</h3>
+<p>首先要明确的是property和attribute（属性）是有很大区别的。 Property类似于一般程序里面的变量。而attribute按照XML的语法是某个标签的组成部分，在Ant的语境下作为指令（target）或任务（task）的额外参数而存在。</p>
+<p>定义property的方法很多，最常见的是同名的任务<code>property</code>,例如前文出现过的</p>
+<pre><code>&lt;property name=&quot;class.dir&quot; value=&quot;${debug.dir}\class&quot; /&gt;
+</code></pre>
+
+<p>其他还有很多任务task可以设定property，如前文提到的<code>available</code></p>
+<p>使用<code>${property_name}</code>来访问property对应的值</p>
+<h3>3.3关于资源集合（resource collection）</h3>
+<p>资源集合指的是一类指向多个资源（文件、路径等）的实体，常见的包括<code>fileset</code>,<code>filelist</code>,<code>dirset</code>,<code>path</code> 等等。下文将介绍一部分常用的资源集合。Apache Ant的官方文档有对所有资源集合的详细说明：<a href="http://ant.apache.org/manual/Types/resources.html#collection">http://ant.apache.org/manual/Types/resources.html#collection</a></p>
+<h4>3.3.1 Fileset</h4>
+<p>Fileset通常指向一组符合特定条件的文件。</p>
+<p>1） <code>file</code>属性指向单个文件</p>
+<pre><code>&lt;fileset file=&quot;somefile&quot; \&gt;
+</code></pre>
+
+<p>2) <code>dir</code>属性指向一个目录。如果没有其他限制条件则指向该文件夹及其子文件夹下所有文件。<br />
+需要注意的是，一个fileset<strong>有且只能有</strong>file或dir这两者中的一个。<br />
+<code>dir</code>可以配合<code>includes</code> <code>excludes</code>属性（attribute）以及嵌套的<code>include</code> <code>exclude</code> 元素来规定包含、排除某些特定文件。<code>includes</code>指定被包含的文件，<code>excludes</code>则会排除符合条件的文件。 若<code>includes</code> <code>excludes</code>两者都没有设定，则会包含所有文件。</p>
+<p>例如：</p>
+<pre><code>&lt;fileset dir=&quot;${server.src}&quot;&gt;
+    &lt;include name=&quot;**/*.java&quot;/&gt;
+    &lt;exclude name=&quot;**/*Test*&quot;/&gt;
+&lt;/fileset&gt;
+</code></pre>
+
+<p>指向<code>${server.src}</code>目录下所有名字中不含Test的java源文件</p>
+<p>另外也可以使用嵌套的<code>filename元素</code>（任务）来指定文件特征，如</p>
+<pre><code>&lt;fileset dir=&quot;${server.src}&quot; casesensitive=&quot;yes&quot;&gt;
+  &lt;filename name=&quot;**/*.java&quot;/&gt;
+  &lt;filename name=&quot;**/*Test*&quot; negate=&quot;true&quot;/&gt;
+&lt;/fileset&gt;
+</code></pre>
+
+<p>以及</p>
+<pre><code>&lt;fileset dir=&quot;${server.src}&quot; casesensitive=&quot;yes&quot;&gt;
+  &lt;filename name=&quot;**/*.java&quot;/&gt;
+  &lt;not&gt;
+    &lt;filename name=&quot;**/*Test*&quot;/&gt;
+  &lt;/not&gt;
+&lt;/fileset&gt;
+</code></pre>
+
+<p>两者和上面的例子效果相同</p>
+<h4>3.3.2 Dirset</h4>
+<p>Dirset是一组目录的集合，使用方法类似于fileset。详细请参考下述范例</p>
+<pre><code>&lt;dirset dir=&quot;${build.dir}&quot;&gt;
+    &lt;include name=&quot;apps/**/classes&quot;/&gt;
+    &lt;exclude name=&quot;apps/**/*Test*&quot;/&gt;
+&lt;/dirset&gt;
+</code></pre>
+
+<p>包含<code>${build.dir}/apps</code>所有名为class的文件夹，并排除路径中有Test的文件夹</p>
+<p><br />
+<strong>建议在使用Dirset之前先进行充分的测试以确保文件安全</strong></p>
+<h4>3.3.3 Filelist</h4>
+<p>Filelist用于选取一批指定名称的文件。这些名称对应的文件可以存在也可以不存在，ant在解析时只会返回存在的文件。应当注意的是filelist不同于fileset，不接受通配符等文件名匹配规则。 具体请参考下列范例</p>
+<p>1）尝试选取${doc.src}文件夹下的foo.xml和bar.xml。</p>
+<pre><code>&lt;filelist  id=&quot;docfiles&quot; dir=&quot;${doc.src}&quot;  files=&quot;foo.xml,bar.xml&quot;/&gt;
+</code></pre>
+
+<p>2）效果同上</p>
+<pre><code>&lt;filelist  id=&quot;docfiles&quot; dir=&quot;${doc.src}&quot; files=&quot;foo.xml bar.xml&quot;/&gt; 
+</code></pre>
+
+<p>3）如果上述例子已经在文件中出现过了，则可以通过其id进行调用（关于id请参考后文常见attribute一节）</p>
+<pre><code>&lt;filelist refid=&quot;docfiles&quot;/&gt; 
+</code></pre>
+
+<p>4）用file元素（任务）代替files，效果同上</p>
+<pre><code>&lt;filelist id=&quot;docfiles&quot; dir=&quot;${doc.src}&quot;&gt;
+    &lt;file name=&quot;foo.xml&quot;/&gt;
+    &lt;file name=&quot;bar.xml&quot;/&gt;
+&lt;/filelist&gt;
+</code></pre>
+
+<p><br /></p>
+<h3>3.4关于true和false值</h3>
+<p>在Ant中部分attribute是布尔类型的，其中：    </p>
+<ul>
+<li><code>true</code> <code>yes</code> <code>on</code> 会被认为是true</li>
+<li><code>false</code> <code>no</code> <code>off</code> 会被认为是false</li>
+</ul>
+<p>同义项之间可以相互交换不影响解析</p>
+<h3>3.5常见attribute</h3>
+<p>在Apache ant中，所有任务task都可以有下述三个attribute</p>
+<ul>
+<li><code>id</code> 即全文中独一无二的识别标记。在其他同类的task标签可以用refid的attribute来引用该任务</li>
+<li><code>taskname</code>用于重命名<strong>当前</strong>任务，使得ant在执行该任务时输出不同的名称。设定taskname不会影响其他任务，也不会影响当前任务的行为</li>
+<li><code>description</code> 对任务本身没有任何影响，主要用于为当前任务提供注释文本</li>
+</ul>
+<h3>3.6 操作文件</h3>
+<h4>3.6.1 拼接文件</h4>
+<p><code>Concat</code>任务可以将指定的多个文件内容进行拼接，并存入指定文件或输出至stdout。具体用法请参考下列示例</p>
+<p>1)向文件<code>README</code>写入“Hello, World!”</p>
+<pre><code>&lt;concat destfile=&quot;README&quot;&gt;Hello, World!&lt;/concat&gt;
+</code></pre>
+
+<p>2)拼接fileset中的所有文件并输出至stdout</p>
+<pre><code>  &lt;concat&gt;
+    &lt;fileset dir=&quot;messages&quot; includes=&quot;*important*&quot;/&gt;
+  &lt;/concat&gt;
+</code></pre>
+
+<p>3）将filelist中的文件拼接至destfile的末端
+	  <concat destfile="NOTES" append="true">
+	    <filelist dir="notes" files="note.txt"/>
+	  </concat></p>
+<h4>3.6.2 复制文件</h4>
+<p>使用copy任务实现对文件和文件夹的复制，具体用法请参考下列示例</p>
+<p>1）复制单个文件</p>
+<pre><code> &lt;copy file=&quot;myfile.txt&quot; tofile=&quot;mycopy.txt&quot;/&gt;
+</code></pre>
+
+<p>2)复制文件夹</p>
+<pre><code>  &lt;copy todir=&quot;../new/dir&quot;&gt;
+    &lt;fileset dir=&quot;src_dir&quot;/&gt;
+  &lt;/copy&gt;
+</code></pre>
+
+<p>3）复制一组文件</p>
+<pre><code>  &lt;copy todir=&quot;../dest/dir&quot;&gt;
+    &lt;fileset dir=&quot;src_dir&quot;&gt;
+      &lt;exclude name=&quot;**/*.java&quot;/&gt;
+    &lt;/fileset&gt;
+  &lt;/copy&gt;
+
+  &lt;copy todir=&quot;../dest/dir&quot;&gt;
+    &lt;fileset dir=&quot;src_dir&quot; excludes=&quot;**/*.java&quot;/&gt;
+  &lt;/copy&gt;
+</code></pre>
+
+<h4>3.6.3移动文件</h4>
+<p>使用 <code>move</code>任务来移动或重命名文件和文件夹，用法与copy类似。详见<code>https://ant.apache.org/manual/Tasks/move.html</code></p>
+<h4>3.6.4 删除文件</h4>
+<p>使用<code>delete</code>任务删除文件和文件夹，例如</p>
+<p>1）删除单个文件</p>
+<pre><code>&lt;delete file=&quot;/lib/ant.jar&quot;/&gt;
+</code></pre>
+
+<p>2）删当前文件夹下及其子文件夹下所有的.bak文件；不删除目录</p>
+<pre><code>&lt;delete&gt;
+    &lt;fileset dir=&quot;.&quot; includes=&quot;**/*.bak&quot;/&gt;
+&lt;/delete&gt;
+</code></pre>
+
+<p>3）删除build文件夹下的所有文件和子文件夹，不删除build文件夹本身</p>
+<pre><code>&lt;delete includeemptydirs=&quot;true&quot;&gt;
+    &lt;fileset dir=&quot;build&quot; includes=&quot;**/*&quot;/&gt;
+&lt;/delete&gt;
+</code></pre>
+
+<p>将<code>includeemptydirs</code>设为true将删除空目录。将includes设为<code>**/*/</code>来排除顶层目录</p>
+<p>4）删除build文件夹下的所有文件和子文件夹，并删除build文件夹本身</p>
+<pre><code>&lt;delete includeEmptyDirs=&quot;true&quot;&gt;
+        &lt;fileset dir=&quot;build&quot;/&gt;
+&lt;/delete&gt;
+</code></pre>
+
+<h4>3.6.5创建文件</h4>
+<p>使用<code>touch</code>任务创建文件。如果目标文件已经存在则更新最后修改时间（modification time）。<br />
+例如：</p>
+<p>1）创建单个文件，如果文件存在则更新其最后修改时间为当前时间</p>
+<pre><code> &lt;touch file=&quot;myfile&quot;/&gt;
+</code></pre>
+
+<p>2）尝试创建单个文件，并设定最后修改时间为指定时间</p>
+<pre><code> &lt;touch file=&quot;myfile&quot; datetime=&quot;06/28/2000 14:02 &quot;/&gt;
+</code></pre>
+
+<p>3)更新src_dir文件夹下所有文件的最后修改时间为指定时间</p>
+<pre><code>&lt;touch datetime=&quot;09/10/1974 4:30 pm&quot;&gt;
+    &lt;fileset dir=&quot;src_dir&quot;/&gt;
+&lt;/touch&gt;
+</code></pre>
+
+<h4>3.6.6创建目录</h4>
+<p>使用<code>mkdir</code>创建目录,例如</p>
+<pre><code>&lt;mkdir dir=&quot;${dist}/lib&quot;/&gt;
+</code></pre>
+
+<p><br /></p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
