@@ -64,7 +64,7 @@
 	
 	cp mantis_offline.php.sample mantis_offline.php
 
-2）对已有的数据进行备份。如使用数据库的dump指令
+2）对已有的数据进行备份。如使用数据库的dump指令  
 3）备份配置文件。可能文件包括：
 
 
